@@ -5,7 +5,7 @@ import { motion } from 'framer-motion'
 import { BenefitCard } from './benefit-card'
 import { PriceDisplay } from './price-display'
 import { GlitchText } from '@/components/ui/glitch-text'
-import { CheckoutButton } from '@/components/ui/checkout-button'
+import { CheckoutButtonWrapper as CheckoutButton } from '@/components/ui/checkout-button-wrapper'
 import { CountdownTimer } from '@/components/ui/countdown-timer'
 import { 
   AlertTriangle,
@@ -55,7 +55,7 @@ export function FinalCTASection() {
       y: 0,
       transition: {
         duration: 0.8,
-        ease: 'easeOut',
+        ease: 'easeOut' as const,
       },
     },
   }
@@ -156,7 +156,7 @@ export function FinalCTASection() {
           {/* Countdown Timer - Large and centered */}
           <motion.div variants={itemVariants} className="mb-12 sm:mb-16">
             <div className="max-w-2xl mx-auto">
-              <CountdownTimer targetDate={targetDate} size="large" />
+              <CountdownTimer targetDate={targetDate} />
             </div>
           </motion.div>
           
@@ -209,8 +209,7 @@ export function FinalCTASection() {
               whileTap={{ scale: 0.98 }}
             >
               <CheckoutButton
-                size="xl"
-                pulse
+                size="lg"
                 className="text-base sm:text-lg md:text-xl lg:text-2xl px-6 py-4 sm:px-8 sm:py-6 md:px-12 md:py-8 bg-gradient-to-r from-primary to-green-400 hover:from-green-400 hover:to-primary text-black font-bold uppercase tracking-wider shadow-2xl w-full sm:w-auto"
                 trackingEvent="final_cta_checkout_click"
               >

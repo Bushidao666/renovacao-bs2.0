@@ -3,8 +3,8 @@
 import * as React from 'react'
 import { useRef, useEffect, useState } from 'react'
 import * as THREE from 'three'
-import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls'
-import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader'
+import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
+import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js'
 import { motion } from 'framer-motion'
 
 interface MugDisplay3DProps {
@@ -14,7 +14,7 @@ interface MugDisplay3DProps {
 export function MugDisplay3D({ username = 'SpyHacker' }: MugDisplay3DProps) {
   const mountRef = useRef<HTMLDivElement>(null)
   const [isLoading, setIsLoading] = useState(true)
-  const [error, setError] = useState(false)
+  const [_error, _setError] = useState(false)
   
   useEffect(() => {
     if (!mountRef.current) return
@@ -133,9 +133,9 @@ export function MugDisplay3D({ username = 'SpyHacker' }: MugDisplay3DProps) {
     // Load GLTF model
     const loader = new GLTFLoader()
     let mugModel: THREE.Object3D
-    let goldenParticles: THREE.Group
-    let reflectionPlane: THREE.Mesh
-    let glowPlane: THREE.Mesh
+    const goldenParticles: THREE.Group = new THREE.Group()
+    let reflectionPlane: THREE.Mesh | undefined
+    let glowPlane: THREE.Mesh | undefined
     
     loader.load(
       '/models/model1.glb',
@@ -249,15 +249,13 @@ export function MugDisplay3D({ username = 'SpyHacker' }: MugDisplay3DProps) {
     )
     
     // Golden luxury particles (rare)
-    goldenParticles = new THREE.Group()
+    // goldenParticles setup
     const goldenCount = 5
     
     for (let i = 0; i < goldenCount; i++) {
       const particleGeometry = new THREE.SphereGeometry(0.008, 8, 8)
       const particleMaterial = new THREE.MeshBasicMaterial({
         color: 0xffd700,
-        emissive: 0xffd700,
-        emissiveIntensity: 2,
         transparent: true,
         opacity: 0.8,
         blending: THREE.AdditiveBlending
@@ -291,7 +289,7 @@ export function MugDisplay3D({ username = 'SpyHacker' }: MugDisplay3DProps) {
       opacity: 0.2,
       side: THREE.DoubleSide,
     })
-    reflectionPlane = new THREE.Mesh(reflectionGeometry, reflectionMaterial)
+    reflectionPlane = new THREE.Mesh(reflectionGeometry, reflectionMaterial) // eslint-disable-line prefer-const
     reflectionPlane.rotation.x = -Math.PI / 2
     reflectionPlane.position.y = -0.6
     scene.add(reflectionPlane)
@@ -305,7 +303,7 @@ export function MugDisplay3D({ username = 'SpyHacker' }: MugDisplay3DProps) {
       side: THREE.DoubleSide,
       blending: THREE.AdditiveBlending
     })
-    glowPlane = new THREE.Mesh(glowGeometry, glowMaterial)
+    glowPlane = new THREE.Mesh(glowGeometry, glowMaterial) // eslint-disable-line prefer-const
     glowPlane.rotation.x = -Math.PI / 2
     glowPlane.position.y = -0.59
     scene.add(glowPlane)

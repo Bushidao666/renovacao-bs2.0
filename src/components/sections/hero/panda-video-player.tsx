@@ -4,12 +4,16 @@ import * as React from 'react'
 import { cn } from '@/lib/utils'
 import { motion } from 'framer-motion'
 
-interface PandaVideoPlayerProps extends React.HTMLAttributes<HTMLDivElement> {}
+type PandaVideoPlayerProps = React.HTMLAttributes<HTMLDivElement>
 
 declare global {
   interface Window {
-    pandascripttag?: any[]
-    PandaPlayer?: any
+    pandascripttag?: Array<() => void>
+    PandaPlayer?: new (id: string, options: {
+      onReady: () => void
+    }) => {
+      pipScrollFollow: (options: { panda_id_player: string }) => void
+    }
   }
 }
 
@@ -30,7 +34,7 @@ const PandaVideoPlayer = React.forwardRef<HTMLDivElement, PandaVideoPlayerProps>
       window.pandascripttag = window.pandascripttag || []
       window.pandascripttag.push(function() {
         const panda_id_player = 'panda-e7f29e1a-ad41-4c75-b287-e99f7c6bbcd8'
-        const p = new window.PandaPlayer(panda_id_player, {
+        const p = new window.PandaPlayer!(panda_id_player, {
           onReady() {
             p.pipScrollFollow({ panda_id_player })
             setIsLoading(false)
@@ -69,7 +73,6 @@ const PandaVideoPlayer = React.forwardRef<HTMLDivElement, PandaVideoPlayerProps>
               style={{ border: 'none' }}
               allow="accelerometer;gyroscope;autoplay;encrypted-media;picture-in-picture"
               allowFullScreen
-              fetchPriority="high"
               onLoad={() => setIsLoading(false)}
             />
           </div>

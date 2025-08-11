@@ -31,7 +31,7 @@ export function HeroSection() {
       y: 0,
       transition: {
         duration: 0.8,
-        ease: 'easeOut',
+        ease: 'easeOut' as const,
       },
     },
   }
@@ -78,8 +78,7 @@ export function HeroSection() {
           <motion.div variants={itemVariants} className="pt-4 sm:pt-6">
             <ScrollButton
               targetId="reward"
-              size="xl"
-              pulse
+              size="lg"
               className="text-sm sm:text-base md:text-lg font-bold px-4 py-3 sm:px-6 sm:py-4"
             >
               VER MEUS BENEFÍCIOS EXCLUSIVOS

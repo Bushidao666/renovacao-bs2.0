@@ -4,13 +4,16 @@ import * as React from 'react'
 import { cn } from '@/lib/utils'
 import { useCheckoutUrl } from '@/hooks/use-checkout-url'
 import { NeonButton } from './neon-button'
-import type { ButtonProps } from './button'
 import { Loader2 } from 'lucide-react'
 
-interface CheckoutButtonProps extends Omit<ButtonProps, 'onClick' | 'href'> {
+export interface CheckoutButtonProps extends Omit<React.ButtonHTMLAttributes<HTMLButtonElement>, 'onClick'> {
+  variant?: 'default' | 'outline' | 'ghost'
+  size?: 'default' | 'sm' | 'lg' | 'xl'
   children: React.ReactNode
   trackingEvent?: string
   className?: string
+  glow?: boolean
+  pulse?: boolean
 }
 
 export function CheckoutButton({ 
@@ -18,6 +21,8 @@ export function CheckoutButton({
   trackingEvent = 'checkout_click',
   className,
   disabled,
+  variant = 'default',
+  size = 'default',
   ...props 
 }: CheckoutButtonProps) {
   const { url, isLoading } = useCheckoutUrl()
@@ -26,8 +31,8 @@ export function CheckoutButton({
     e.preventDefault()
     
     // Track event (você pode integrar com Google Analytics, Segment, etc.)
-    if (typeof window !== 'undefined' && (window as any).gtag) {
-      (window as any).gtag('event', trackingEvent, {
+    if (typeof window !== 'undefined' && (window as unknown as { gtag?: (command: string, event: string, params: object) => void }).gtag) {
+      (window as unknown as { gtag?: (command: string, event: string, params: object) => void }).gtag!('event', trackingEvent, {
         event_category: 'conversion',
         event_label: url,
       })
@@ -43,6 +48,8 @@ export function CheckoutButton({
     return (
       <NeonButton
         disabled
+        variant={variant}
+        size={size}
         className={cn('relative', className)}
         {...props}
       >
@@ -56,6 +63,8 @@ export function CheckoutButton({
     <NeonButton
       onClick={handleClick}
       disabled={disabled || isLoading}
+      variant={variant}
+      size={size}
       className={className}
       {...props}
     >

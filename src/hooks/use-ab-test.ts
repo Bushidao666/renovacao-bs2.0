@@ -17,21 +17,25 @@ export function useABTest(testName: string = 'checkout'): ABTestResult {
     // Chave única para este teste no sessionStorage
     const storageKey = `ab_test_${testName}`
     
-    // Verifica se já existe uma variante selecionada para esta sessão
-    const storedVariant = sessionStorage.getItem(storageKey)
-    
-    if (storedVariant === 'A' || storedVariant === 'B') {
-      setVariant(storedVariant)
-    } else {
-      // Seleciona aleatoriamente uma variante (50/50)
-      const selectedVariant: ABVariant = Math.random() < 0.5 ? 'A' : 'B'
-      setVariant(selectedVariant)
+    if (typeof window !== 'undefined') {
+      // Verifica se já existe uma variante selecionada para esta sessão
+      const storedVariant = window.sessionStorage ? sessionStorage.getItem(storageKey) : null
       
-      // Armazena a variante selecionada para manter consistência durante a sessão
-      sessionStorage.setItem(storageKey, selectedVariant)
-      
-      // Também armazena em um cookie para análises posteriores (opcional)
-      document.cookie = `${storageKey}=${selectedVariant}; path=/; max-age=${60 * 60 * 24 * 30}` // 30 dias
+      if (storedVariant === 'A' || storedVariant === 'B') {
+        setVariant(storedVariant)
+      } else {
+        // Seleciona aleatoriamente uma variante (50/50)
+        const selectedVariant: ABVariant = Math.random() < 0.5 ? 'A' : 'B'
+        setVariant(selectedVariant)
+        
+        // Armazena a variante selecionada para manter consistência durante a sessão
+        if (window.sessionStorage) {
+          sessionStorage.setItem(storageKey, selectedVariant)
+        }
+        
+        // Também armazena em um cookie para análises posteriores (opcional)
+        document.cookie = `${storageKey}=${selectedVariant}; path=/; max-age=${60 * 60 * 24 * 30}` // 30 dias
+      }
     }
     
     setIsLoading(false)

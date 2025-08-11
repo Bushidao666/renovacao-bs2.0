@@ -3,7 +3,6 @@
 import * as React from 'react'
 import { cn } from '@/lib/utils'
 import { motion } from 'framer-motion'
-import Image from 'next/image'
 
 interface MugDisplayProps extends React.HTMLAttributes<HTMLDivElement> {
   username?: string

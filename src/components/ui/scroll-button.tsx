@@ -1,15 +1,17 @@
 'use client'
 
 import * as React from 'react'
-import { cn } from '@/lib/utils'
 import { NeonButton } from './neon-button'
-import type { ButtonProps } from './button'
 
-interface ScrollButtonProps extends Omit<ButtonProps, 'onClick' | 'href'> {
+interface ScrollButtonProps extends Omit<React.ButtonHTMLAttributes<HTMLButtonElement>, 'onClick'> {
   children: React.ReactNode
   targetId: string
   offset?: number
   className?: string
+  variant?: 'default' | 'outline' | 'ghost'
+  size?: 'default' | 'sm' | 'lg' | 'xl'
+  glow?: boolean
+  pulse?: boolean
 }
 
 export function ScrollButton({ 

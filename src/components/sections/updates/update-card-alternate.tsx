@@ -206,13 +206,13 @@ export function UpdateCardAlternate({
                   <div className="relative">
                     {/* Icon glow */}
                     <div className="absolute inset-0 blur-2xl opacity-50">
-                      {React.cloneElement(icon as React.ReactElement, {
+                      {React.cloneElement(icon as React.ReactElement<{className?: string}>, {
                         className: "w-20 h-20 sm:w-24 sm:h-24 lg:w-32 lg:h-32 text-primary"
                       })}
                     </div>
                     
                     {/* Main icon */}
-                    {React.cloneElement(icon as React.ReactElement, {
+                    {React.cloneElement(icon as React.ReactElement<{className?: string}>, {
                       className: "w-20 h-20 sm:w-24 sm:h-24 lg:w-32 lg:h-32 text-primary relative z-10"
                     })}
                     

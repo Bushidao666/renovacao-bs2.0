@@ -4,14 +4,15 @@ import * as React from 'react'
 import { cn } from '@/lib/utils'
 import { motion } from 'framer-motion'
 
-interface CyberCardProps extends React.HTMLAttributes<HTMLDivElement> {
-  children: React.ReactNode
+interface CyberCardProps {
+  children?: React.ReactNode
+  className?: string
   variant?: 'default' | 'holographic' | 'premium'
   glowColor?: 'green' | 'gold' | 'red'
 }
 
 const CyberCard = React.forwardRef<HTMLDivElement, CyberCardProps>(
-  ({ children, className, variant = 'default', glowColor = 'green', ...props }, ref) => {
+  ({ children, className, variant = 'default', glowColor = 'green' }, ref) => {
     const glowColors = {
       green: 'rgba(0, 255, 0, 0.5)',
       gold: 'rgba(255, 215, 0, 0.5)',
@@ -33,7 +34,6 @@ const CyberCard = React.forwardRef<HTMLDivElement, CyberCardProps>(
         )}
         whileHover={{ scale: 1.02 }}
         transition={{ duration: 0.3 }}
-        {...props}
       >
         {/* Background gradient */}
         <div className="absolute inset-0 bg-gradient-to-br from-black via-gray-900 to-black" />

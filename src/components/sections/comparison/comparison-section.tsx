@@ -26,7 +26,7 @@ export function ComparisonSection() {
       y: 0,
       transition: {
         duration: 0.8,
-        ease: 'easeOut',
+        ease: 'easeOut' as const,
       },
     },
   }
@@ -146,9 +146,8 @@ export function ComparisonSection() {
           <motion.div variants={itemVariants} className="text-center">
             <ScrollButton
               targetId="arsenal"
-              size="xl"
+              size="lg"
               variant="default"
-              pulse
               className="bg-yellow-500 hover:bg-yellow-400 text-black w-full sm:w-auto">
               <Sparkles className="mr-2 h-5 w-5" />
               VER O ARSENAL COMPLETO

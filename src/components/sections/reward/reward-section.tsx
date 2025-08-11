@@ -2,9 +2,8 @@
 
 import * as React from 'react'
 import { motion } from 'framer-motion'
-import { CyberCard } from '@/components/ui/cyber-card'
 import { GlitchText } from '@/components/ui/glitch-text'
-import { CheckoutButton } from '@/components/ui/checkout-button'
+import { CheckoutButtonWrapper as CheckoutButton } from '@/components/ui/checkout-button-wrapper'
 import { MugDisplay3D } from './mug-display-3d'
 import { ProgressBar } from './progress-bar'
 import { Trophy, Zap } from 'lucide-react'
@@ -28,7 +27,7 @@ export function RewardSection() {
       y: 0,
       transition: {
         duration: 0.8,
-        ease: 'easeOut',
+        ease: 'easeOut' as const,
       },
     },
   }
@@ -105,7 +104,6 @@ export function RewardSection() {
                 <CheckoutButton
                   size="lg"
                   variant="default"
-                  pulse
                   className="bg-yellow-500 hover:bg-yellow-400 text-black w-full sm:w-auto"
                   trackingEvent="reward_checkout_click"
                 >

@@ -28,13 +28,17 @@ export function useUTMParams(): UTMParams {
     
     // Se não houver UTMs na URL, tenta recuperar do sessionStorage
     if (Object.keys(params).length === 0) {
-      const storedUTMs = sessionStorage.getItem('utm_params')
-      if (storedUTMs) {
-        return setUtmParams(JSON.parse(storedUTMs))
+      if (typeof window !== 'undefined' && window.sessionStorage) {
+        const storedUTMs = sessionStorage.getItem('utm_params')
+        if (storedUTMs) {
+          return setUtmParams(JSON.parse(storedUTMs))
+        }
       }
     } else {
       // Armazena UTMs no sessionStorage para persistir durante a sessão
-      sessionStorage.setItem('utm_params', JSON.stringify(params))
+      if (typeof window !== 'undefined' && window.sessionStorage) {
+        sessionStorage.setItem('utm_params', JSON.stringify(params))
+      }
     }
     
     setUtmParams(params)

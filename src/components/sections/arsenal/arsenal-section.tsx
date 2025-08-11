@@ -74,7 +74,7 @@ export function ArsenalSection() {
       y: 0,
       transition: {
         duration: 0.8,
-        ease: 'easeOut',
+        ease: 'easeOut' as const,
       },
     },
   }
@@ -151,9 +151,8 @@ export function ArsenalSection() {
           >
             <ScrollButton
               targetId="final-cta"
-              size="xl"
+              size="lg"
               variant="default"
-              pulse
               className="bg-gradient-to-r from-primary to-yellow-400 hover:from-yellow-400 hover:to-primary text-black w-full sm:w-auto"
             >
               <ArrowDown className="mr-2 h-5 w-5" />

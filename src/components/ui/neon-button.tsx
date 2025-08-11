@@ -43,14 +43,12 @@ export interface NeonButtonProps
 const NeonButton = React.forwardRef<HTMLButtonElement, NeonButtonProps>(
   ({ className, variant, size, glow, pulse = false, children, ...props }, ref) => {
     return (
-      <motion.button
+      <button
         className={cn(
           neonButtonVariants({ variant, size, glow, className }),
           pulse && 'pulse-green'
         )}
         ref={ref}
-        whileHover={{ scale: 1.05 }}
-        whileTap={{ scale: 0.95 }}
         {...props}
       >
         {/* Background glow effect */}
@@ -74,7 +72,7 @@ const NeonButton = React.forwardRef<HTMLButtonElement, NeonButtonProps>(
           whileHover={{ scaleX: 1 }}
           transition={{ duration: 0.3 }}
         />
-      </motion.button>
+      </button>
     )
   }
 )

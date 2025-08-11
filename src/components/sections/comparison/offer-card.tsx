@@ -11,17 +11,19 @@ interface OfferItem {
   highlight?: boolean
 }
 
-interface OfferCardProps extends React.HTMLAttributes<HTMLDivElement> {
+interface OfferCardProps {
   title: string
   subtitle?: string
   variant: 'default' | 'premium'
   items: OfferItem[]
   badge?: string
   dateRange?: string
+  className?: string
+  children?: React.ReactNode
 }
 
 const OfferCard = React.forwardRef<HTMLDivElement, OfferCardProps>(
-  ({ title, subtitle, variant, items, badge, dateRange, className, children, ...props }, ref) => {
+  ({ title, subtitle, variant, items, badge, dateRange, className, children }, ref) => {
     const isPremium = variant === 'premium'
     
     return (
@@ -33,7 +35,6 @@ const OfferCard = React.forwardRef<HTMLDivElement, OfferCardProps>(
         )}
         whileHover={{ scale: isPremium ? 1.02 : 1 }}
         transition={{ duration: 0.3 }}
-        {...props}
       >
         {/* Background */}
         <div className={cn(

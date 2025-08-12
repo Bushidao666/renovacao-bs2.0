@@ -217,4 +217,34 @@
       background-position: 0% 50%;
     }
   }
+  
+  /* Optimized Scan Lines */
+  .scan-lines {
+    animation: scan 1s linear infinite;
+    will-change: transform;
+  }
+  
+  @keyframes scan {
+    0% {
+      transform: translateY(0);
+    }
+    100% {
+      transform: translateY(10px);
+    }
+  }
+  
+  /* Performance optimizations */
+  .will-change-opacity {
+    will-change: opacity;
+  }
+  
+  .will-change-transform {
+    will-change: transform;
+  }
+  
+  /* GPU acceleration */
+  .gpu-accelerated {
+    transform: translateZ(0);
+    backface-visibility: hidden;
+  }
 }

@@ -67,25 +67,17 @@ export function FinalCTASection() {
         {/* Red alert gradient */}
         <div className="absolute inset-0 bg-gradient-to-b from-red-900/10 via-black to-black" />
         
-        {/* Animated scan lines */}
-        <motion.div
-          className="absolute inset-0"
+        {/* Animated scan lines - Otimizado com CSS */}
+        <div 
+          className="absolute inset-0 scan-lines"
           style={{
             backgroundImage: `repeating-linear-gradient(
               0deg,
               transparent,
               transparent 2px,
-              rgba(255, 0, 0, 0.03) 2px,
-              rgba(255, 0, 0, 0.03) 4px
+              rgba(255, 0, 0, 0.02) 2px,
+              rgba(255, 0, 0, 0.02) 4px
             )`,
-          }}
-          animate={{
-            y: [0, 10],
-          }}
-          transition={{
-            duration: 0.5,
-            repeat: Infinity,
-            ease: "linear"
           }}
         />
         
@@ -93,22 +85,22 @@ export function FinalCTASection() {
         <div className="absolute inset-0 bg-gradient-to-r from-black via-transparent to-black" />
       </div>
       
-      {/* Falling particles (digital ashes) */}
+      {/* Falling particles (digital ashes) - Reduzido para melhor performance */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        {[...Array(15)].map((_, i) => (
+        {[...Array(8)].map((_, i) => (
           <motion.div
             key={i}
-            className="absolute w-1 h-1 bg-red-500/30 rounded-full"
+            className="absolute w-1 h-1 bg-red-500/20 rounded-full will-change-transform"
             style={{
               left: `${Math.random() * 100}%`,
               top: -10,
             }}
             animate={{
               y: ['0vh', '100vh'],
-              opacity: [0, 1, 0],
+              opacity: [0, 0.8, 0],
             }}
             transition={{
-              duration: 10 + Math.random() * 10,
+              duration: 15 + Math.random() * 10,
               repeat: Infinity,
               delay: Math.random() * 10,
               ease: "linear"

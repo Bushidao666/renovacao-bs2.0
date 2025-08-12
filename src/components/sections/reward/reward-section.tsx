@@ -1,12 +1,28 @@
 'use client'
 
 import * as React from 'react'
+import dynamic from 'next/dynamic'
 import { motion } from 'framer-motion'
 import { GlitchText } from '@/components/ui/glitch-text'
 import { CheckoutButtonWrapper as CheckoutButton } from '@/components/ui/checkout-button-wrapper'
-import { MugDisplay3D } from './mug-display-3d'
 import { ProgressBar } from './progress-bar'
 import { Trophy, Zap } from 'lucide-react'
+
+// Lazy load do componente 3D pesado
+const MugDisplay3D = dynamic(
+  () => import('./mug-display-3d').then(mod => ({ default: mod.MugDisplay3D })),
+  { 
+    loading: () => (
+      <div className="w-full h-[250px] sm:h-[300px] md:h-[350px] lg:h-[400px] bg-gradient-to-br from-gray-900 to-black rounded-lg flex items-center justify-center">
+        <div className="text-center">
+          <div className="w-16 h-16 border-4 border-primary border-t-transparent rounded-full animate-spin mx-auto mb-4" />
+          <p className="text-sm text-gray-500">Carregando modelo 3D...</p>
+        </div>
+      </div>
+    ),
+    ssr: false 
+  }
+)
 
 export function RewardSection() {
   const containerVariants = {
@@ -31,6 +47,47 @@ export function RewardSection() {
       },
     },
   }
+  
+  // Contador em tempo real a partir da Edge Function (Supabase)
+  const [counts, setCounts] = React.useState<{
+    remaining: number
+    purchased: number
+    total: number
+  } | null>(null)
+
+  React.useEffect(() => {
+    let isActive = true
+    const fetchCounts = async () => {
+      try {
+        // Proxy local público (sem headers de auth no client)
+        const res = await fetch(`/api/founder-members`, {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          cache: 'no-store',
+          mode: 'cors',
+        })
+        if (!res.ok) throw new Error(`HTTP ${res.status}`)
+        const data = await res.json()
+        if (!isActive) return
+        setCounts({
+          remaining: typeof data.remaining === 'number' ? data.remaining : 0,
+          purchased: typeof data.purchased === 'number' ? data.purchased : 0,
+          total: typeof data.total === 'number' ? data.total : 100,
+        })
+      } catch {
+        // Falha silenciosa: mantém fallback estático
+      }
+    }
+
+    fetchCounts()
+    const interval = setInterval(fetchCounts, 20000)
+    return () => {
+      isActive = false
+      clearInterval(interval)
+    }
+  }, [])
   
   return (
     <section id="reward" className="relative py-12 sm:py-16 md:py-24 lg:py-32 overflow-x-hidden">
@@ -92,8 +149,8 @@ export function RewardSection() {
               {/* Progress Bar */}
               <div className="py-4 sm:py-6">
                 <ProgressBar 
-                  current={23} 
-                  total={100} 
+                  current={counts?.remaining ?? 23} 
+                  total={counts?.total ?? 100} 
                   label="Canecas de Fundador Restantes"
                   variant="gradient"
                 />

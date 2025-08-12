@@ -4,6 +4,7 @@ import * as React from 'react'
 import { cn } from '@/lib/utils'
 import { motion } from 'framer-motion'
 import { TrendingDown } from 'lucide-react'
+import { useInstallments } from '@/hooks/use-installments'
 
 interface PriceDisplayProps extends React.HTMLAttributes<HTMLDivElement> {
   originalPrice?: number
@@ -11,10 +12,6 @@ interface PriceDisplayProps extends React.HTMLAttributes<HTMLDivElement> {
   currency?: string
   variant?: 'default' | 'premium'
   showSavings?: boolean
-  installments?: {
-    count: number
-    value: number
-  }
 }
 
 const PriceDisplay = React.forwardRef<HTMLDivElement, PriceDisplayProps>(
@@ -24,11 +21,11 @@ const PriceDisplay = React.forwardRef<HTMLDivElement, PriceDisplayProps>(
     currency = 'R$',
     variant = 'default',
     showSavings = true,
-    installments,
     className, 
     ...props 
   }, ref) => {
     const isPremium = variant === 'premium'
+    const installments = useInstallments()
     const savings = originalPrice ? originalPrice - currentPrice : 0
     const savingsPercentage = originalPrice ? Math.round((savings / originalPrice) * 100) : 0
     
@@ -46,7 +43,7 @@ const PriceDisplay = React.forwardRef<HTMLDivElement, PriceDisplayProps>(
         {...props}
       >
         {/* Original price (striked) */}
-        {originalPrice && (
+        {originalPrice && originalPrice !== currentPrice && (
           <motion.div
             className="mb-2"
             initial={{ opacity: 0, scale: 0.8 }}
@@ -85,7 +82,7 @@ const PriceDisplay = React.forwardRef<HTMLDivElement, PriceDisplayProps>(
         </motion.div>
         
         {/* Installments */}
-        {installments && (
+        {isPremium && (
           <motion.p
             className="text-sm md:text-base text-gray-400 mt-2"
             initial={{ opacity: 0 }}
@@ -97,9 +94,8 @@ const PriceDisplay = React.forwardRef<HTMLDivElement, PriceDisplayProps>(
               'font-semibold',
               isPremium ? 'text-yellow-400' : 'text-white'
             )}>
-              {currency} {formatPrice(installments.value)}
+              {currency} {installments.value.toFixed(2).replace('.', ',')}
             </span>
-            {' '}sem juros
           </motion.p>
         )}
         
@@ -113,7 +109,7 @@ const PriceDisplay = React.forwardRef<HTMLDivElement, PriceDisplayProps>(
           >
             <TrendingDown className="w-4 h-4 text-green-400" />
             <span className="text-sm font-semibold text-green-400">
-              Economize {currency} {formatPrice(savings)} ({savingsPercentage}% OFF)
+              Economize {currency} 1.503 ({savingsPercentage}% OFF)
             </span>
           </motion.div>
         )}

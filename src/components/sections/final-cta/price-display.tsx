@@ -3,8 +3,11 @@
 import * as React from 'react'
 import { motion } from 'framer-motion'
 import { TrendingDown } from 'lucide-react'
+import { useInstallments } from '@/hooks/use-installments'
 
 export function PriceDisplay() {
+  const installments = useInstallments()
+  
   return (
     <motion.div
       className="relative"
@@ -37,7 +40,7 @@ export function PriceDisplay() {
         {/* Price comparison */}
         <div className="mt-8 mb-6">
           <div className="flex items-center justify-center gap-4 mb-2">
-            <span className="text-2xl text-gray-500 line-through">R$ 2.999</span>
+            <span className="text-2xl text-gray-500 line-through">R$ 3.000</span>
             <motion.div
               animate={{ rotate: 180 }}
               transition={{ duration: 1, repeat: Infinity, repeatDelay: 2 }}
@@ -66,11 +69,11 @@ export function PriceDisplay() {
             }}
           >
             <h3 className="text-6xl lg:text-7xl font-bold text-white">
-              R$ 1.499
+              R$ 1.497
             </h3>
             {/* Price glow */}
             <div className="absolute inset-0 text-6xl lg:text-7xl font-bold text-primary blur-2xl opacity-50">
-              R$ 1.499
+              R$ 1.497
             </div>
           </motion.div>
         </div>
@@ -82,7 +85,7 @@ export function PriceDisplay() {
           animate={{ opacity: 1 }}
           transition={{ delay: 0.5 }}
         >
-          ou em <span className="text-primary font-bold">10x de R$ 149,90</span> sem juros
+          ou em <span className="text-primary font-bold">{installments.count}x de R$ {installments.value.toFixed(2).replace('.', ',')}</span>
         </motion.p>
         
         {/* Savings badge */}
@@ -92,7 +95,7 @@ export function PriceDisplay() {
         >
           <div className="w-2 h-2 rounded-full bg-primary animate-pulse" />
           <span className="text-sm text-primary font-semibold">
-            Você economiza R$ 1.500
+            Você economiza R$ 1.503
           </span>
         </motion.div>
         

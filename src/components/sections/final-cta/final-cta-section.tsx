@@ -35,7 +35,7 @@ const benefits = [
 
 export function FinalCTASection() {
   // Target date for countdown
-  const targetDate = new Date('2024-08-18T23:59:59')
+  const targetDate = new Date('2025-08-18T23:59:59')
   
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -168,7 +168,7 @@ export function FinalCTASection() {
               </h3>
               <p className="text-base sm:text-lg text-gray-300 text-center max-w-3xl mx-auto leading-relaxed px-2">
                 Você não é novato. Você acreditou no projeto quando era só mato. 
-                Por isso, enquanto os novos membros pagarão <span className="text-red-500 font-bold">R$ 2.999</span> pelo 
+                Por isso, enquanto os novos membros pagarão <span className="text-red-500 font-bold">R$ 3.000</span> pelo 
                 Kit BlackSider Plus, você terá acesso a <span className="text-primary font-bold">TUDO</span>, 
                 pagando apenas o valor da renovação básica.
               </p>

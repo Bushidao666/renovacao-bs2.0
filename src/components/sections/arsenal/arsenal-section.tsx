@@ -45,7 +45,7 @@ const bonuses = [
   {
     number: 1,
     title: 'Semana BlackSider',
-    description: 'De 25 a 29 de agosto, cinco top players do fórum, que já faturaram 7 dígitos, vão abrir a caixa-preta em 5 lives exclusivas, mostrando estratégias e ferramentas que usam na trincheira. Isso, por si só, não tem preço.',
+    description: 'De 25 a 29 de agosto, alguns dos top players do fórum, que já faturaram 7 dígitos, vão abrir a caixa-preta em 5 lives exclusivas, mostrando estratégias e ferramentas que usam na trincheira. Isso, por si só, não tem preço.',
     highlight: '25 a 29 de agosto'
   },
   {

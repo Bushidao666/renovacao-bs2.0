@@ -110,8 +110,7 @@ export function ComparisonSection() {
                 items={novatoItems}
               >
                 <PriceDisplay
-                  originalPrice={2999}
-                  currentPrice={2999}
+                  currentPrice={3000}
                   variant="default"
                   showSavings={false}
                 />
@@ -129,14 +128,10 @@ export function ComparisonSection() {
                 badge="FUNDADOR"
               >
                 <PriceDisplay
-                  originalPrice={2999}
-                  currentPrice={1499}
+                  originalPrice={3000}
+                  currentPrice={1497}
                   variant="premium"
                   showSavings={true}
-                  installments={{
-                    count: 10,
-                    value: 149.90
-                  }}
                 />
               </OfferCard>
             </motion.div>

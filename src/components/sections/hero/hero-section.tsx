@@ -10,8 +10,8 @@ import { CountdownTimer } from '@/components/ui/countdown-timer'
 import { ChevronRight } from 'lucide-react'
 
 export function HeroSection() {
-  // Target date: August 18, 2024 at 23:59
-  const targetDate = new Date('2024-08-18T23:59:59')
+  // Target date: August 18, 2025 at 23:59
+  const targetDate = new Date('2025-08-18T23:59:59')
   
   const containerVariants = {
     hidden: { opacity: 0 },

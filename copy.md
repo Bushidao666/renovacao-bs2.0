@@ -161,7 +161,7 @@ Você não é novato. Você acreditou no projeto quando era só mato. Por isso, 
 
 ### Sua Renovação de Fundador Inclui:
 - Acesso ao Fórum BlackSider 2.0 por 1 ano.
-- O Arsenal Completo: Protocolo Fantasma, Hidra, Hyper, Radar, Forja e SiderTools.
+- O Arsenal Completo: Protocolo Fantasma, Hidra, Hyper, Radar, CyberVault e SiderTools.
 - Bônus: Semana BlackSider + Frame de Fundador.
 - Todas as futuras atualizações.
 

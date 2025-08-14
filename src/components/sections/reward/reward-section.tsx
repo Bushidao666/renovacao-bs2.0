@@ -48,46 +48,12 @@ export function RewardSection() {
     },
   }
   
-  // Contador em tempo real a partir da Edge Function (Supabase)
-  const [counts, setCounts] = React.useState<{
-    remaining: number
-    purchased: number
-    total: number
-  } | null>(null)
-
-  React.useEffect(() => {
-    let isActive = true
-    const fetchCounts = async () => {
-      try {
-        // Proxy local público (sem headers de auth no client)
-        const res = await fetch(`/api/founder-members`, {
-          method: 'GET',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          cache: 'no-store',
-          mode: 'cors',
-        })
-        if (!res.ok) throw new Error(`HTTP ${res.status}`)
-        const data = await res.json()
-        if (!isActive) return
-        setCounts({
-          remaining: typeof data.remaining === 'number' ? data.remaining : 0,
-          purchased: typeof data.purchased === 'number' ? data.purchased : 0,
-          total: typeof data.total === 'number' ? data.total : 100,
-        })
-      } catch {
-        // Falha silenciosa: mantém fallback estático
-      }
-    }
-
-    fetchCounts()
-    const interval = setInterval(fetchCounts, 20000)
-    return () => {
-      isActive = false
-      clearInterval(interval)
-    }
-  }, [])
+  // Contador fixo de canecas disponíveis
+  const counts = {
+    remaining: 3,
+    purchased: 97,
+    total: 100
+  }
   
   return (
     <section id="reward" className="relative py-12 sm:py-16 md:py-24 lg:py-32 overflow-x-hidden">
@@ -149,8 +115,8 @@ export function RewardSection() {
               {/* Progress Bar */}
               <div className="py-4 sm:py-6">
                 <ProgressBar 
-                  current={counts?.remaining ?? 23} 
-                  total={counts?.total ?? 100} 
+                  current={counts.remaining} 
+                  total={counts.total} 
                   label="Canecas de Fundador Restantes"
                   variant="gradient"
                 />

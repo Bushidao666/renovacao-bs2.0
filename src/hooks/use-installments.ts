@@ -16,13 +16,13 @@ export function useInstallments(): InstallmentInfo {
   // Variante B = CNPAY
   if (variant === 'A') {
     return {
-      count: 10,
+      count: 12,
       value: 150.30,
       gateway: 'YOUSHOP'
     }
   } else {
     return {
-      count: 10,
+      count: 12,
       value: 156.74,
       gateway: 'CNPAY'
     }
